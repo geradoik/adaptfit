@@ -1,0 +1,168 @@
+title,body,labels,milestone
+"T-01 Create GitHub repo, push the starter project, enable CI","Starter project is in the zip (backend, frontend, docs, CI workflow).
+Done when: repo is on GitHub, CI run is green, supervisor has been added if required.
+Ticket: T-01","week-1,devops",Week 1 (Oct 5-11)
+T-02 Import tickets and set up the project board,"Run scripts/create_issues.py (dry run first). Board columns: Backlog, This week, In progress, Review, Done.
+Done when: every ticket exists, has a week milestone and appears on the board.
+Ticket: T-02","week-1,devops",Week 1 (Oct 5-11)
+T-03 Build the 6 wireframes in Figma,"Follow docs/wireframes-figma-spec.md.
+Done when: six frames exist with the shared component set, empty/loading/error states are marked, and each frame is annotated with its requirement IDs.
+
+Requirements: FR-3, FR-5, FR-6, FR-8, FR-13, FR-14, NFR-3, NFR-6, NFR-7
+Ticket: T-03","week-1,design",Week 1 (Oct 5-11)
+T-04 Check the database schema against the ER diagram,"Schema and tests are in backend/db and backend/tests. Read docs/schema-notes.md and settle decisions D-1 to D-7.
+Done when: tests pass on your machine and every decision is recorded as accepted or changed.
+
+Requirements: FR-7, FR-8, NFR-7
+Ticket: T-04","week-1,backend,database",Week 1 (Oct 5-11)
+T-05 Review the API endpoint list,"See docs/api.md.
+Done when: endpoints are agreed, and any endpoint that needs a schema change is linked to the matching decision in docs/schema-notes.md.
+
+Requirements: FR-1, FR-2, FR-3, FR-5, FR-8, FR-13, FR-14, NFR-5, NFR-6
+Ticket: T-05","week-1,backend,docs",Week 1 (Oct 5-11)
+T-06 Write the metric formulas with worked examples,"Not started in the starter project on purpose. Cover adherence %, weight trend, sleep consistency and strength estimate, each with inputs, formula, minimum data and at least two worked examples with numbers.
+Blocked by decisions D-2 (counting completed sessions) and D-5 (sleep data per check-in).
+Done when: every formula can be turned directly into a unit test.
+
+Requirements: FR-9, FR-12, NFR-4, NFR-8, P-2
+Ticket: T-06","week-1,backend,docs",Week 1 (Oct 5-11)
+"T-07 Message the supervisor about ethics, the checkpoint and the submission date","Draft is in docs/supervisor-message.md. Send it through Blackboard, not email.
+Done when: you have a written answer on whether the questionnaire needs ethics clearance and what the real submission date is.
+Ticket: T-07","week-1,admin",Week 1 (Oct 5-11)
+T-08 Finalise the questionnaire,"Draft is in docs/questionnaire.md. Pilot it with two people and trim anything they stumble on.
+Done when: it is built in your form tool, consent text is included, and it is cleared to send (see ethics ticket).
+Ticket: T-08","week-1,research",Week 1 (Oct 5-11)
+T-09 Run the hello-world check end to end,"Follow the README.
+Done when: the page shows Client, Server and Database as Working.
+Ticket: T-09","week-1,devops",Week 1 (Oct 5-11)
+T-10 Registration and login,"Hash passwords with a slow hash (argon2 or bcrypt). Return a signed token. Reject unauthenticated calls to every profile endpoint.
+Done when: tests cover duplicate email, wrong password and missing token.
+
+Requirements: FR-1, FR-2, NFR-5
+Ticket: T-10","week-2,backend,frontend,mvp",Week 2 (Oct 12-18)
+T-11 Onboarding form and baseline profile,"Fields: training schedule, diet pattern, weight, height, sleep habits, goals. Keep it to three short steps.
+Done when: a new user finishes onboarding and a baseline snapshot exists.
+
+Requirements: FR-3, FR-4
+Ticket: T-11","week-2,backend,frontend,mvp",Week 2 (Oct 12-18)
+T-12 Versioned snapshots: create and retrieve by date,"Never update a snapshot; always insert. Retrieval returns the snapshot in effect on a given date.
+Done when: tests prove old snapshots are unchanged after a new one is added.
+
+Requirements: FR-7, FR-8
+Ticket: T-12","week-2,backend,mvp",Week 2 (Oct 12-18)
+T-13 Send the questionnaire,"Done when: the link is out to your target group and you have a response target (for example 30).
+Ticket: T-13","week-2,research",Week 2 (Oct 12-18)
+T-14 Weekly check-in form,"At most two menu levels. Prefill from last week. Sleep, diet and loads are optional.
+Done when: a check-in saves and creates a new snapshot linked one-to-one.
+
+Requirements: FR-5, NFR-3
+Ticket: T-14","week-3,frontend,backend,mvp",Week 3 (Oct 19-25)
+T-15 One-tap 'done as planned' logging,"Done when: logging a planned session takes one tap and no typing.
+
+Requirements: FR-6
+Ticket: T-15","week-3,frontend,backend,mvp",Week 3 (Oct 19-25)
+T-16 Adherence percentage with unit tests,"Implements the formula from the metric formulas ticket as a pure function.
+Done when: tests match your hand-calculated worked examples.
+
+Requirements: FR-9, NFR-4, NFR-8
+Ticket: T-16","week-3,backend,mvp",Week 3 (Oct 19-25)
+T-17 Weight trend with unit tests,"Done when: tests match worked examples, including a case with too little data.
+
+Requirements: FR-12, NFR-4, NFR-8
+Ticket: T-17","week-3,backend,mvp",Week 3 (Oct 19-25)
+T-18 Collect questionnaire responses,"Done when: you have reached the response target or the deadline you set.
+Ticket: T-18","week-3,research",Week 3 (Oct 19-25)
+T-19 Sleep consistency and minimum-data rules,"A metric with too little data returns 'not enough data' instead of a number.
+Done when: tests cover sparse and missing data.
+
+Requirements: P-2, NFR-4, NFR-8
+Ticket: T-19","week-4,backend,mvp",Week 4 (Oct 26-Nov 1)
+T-20 Strength progression estimate (cut first if behind),"Optional load entry only. Estimates are labelled as estimates.
+Done when: tests cover missing loads.
+
+Requirements: P-2, NFR-8
+Ticket: T-20","week-4,backend,cut-first",Week 4 (Oct 26-Nov 1)
+"T-21 Evidence rule set, versioned and separate from code","Rules stored as data with description, citation and version, using the studies cited in the proposal.
+Done when: rules load from the database and a version change does not need a code change.
+
+Requirements: FR-13, NFR-7
+Ticket: T-21","week-4,backend,ai,mvp",Week 4 (Oct 26-Nov 1)
+T-22 Rule-based suggestions,"Metrics in, rule matches out, with no LLM. This is the fallback and Milestone A.
+Done when: each user with enough data gets a suggestion built only from rules.
+
+Requirements: FR-13
+Ticket: T-22","week-4,backend,ai,mvp",Week 4 (Oct 26-Nov 1)
+T-23 'Why this suggestion' display,"Shows the metrics and rules behind every suggestion.
+Done when: no suggestion is displayed without its source metrics.
+
+Requirements: FR-14, NFR-7
+Ticket: T-23","week-4,frontend,backend,mvp",Week 4 (Oct 26-Nov 1)
+T-24 Analyse the questionnaire and refine priorities,"Done when: findings are summarised in a short table and any priority changes are written down (scope stays inside the proposal).
+Ticket: T-24","week-4,research",Week 4 (Oct 26-Nov 1)
+T-25 Server-side LLM call and prompt builder,"The API key stays on the server. The prompt contains computed metrics and rules, never raw identifiers.
+Done when: a suggestion is generated within your timing target and responses are cached for tests.
+
+Requirements: FR-13, NFR-1
+Ticket: T-25","week-5,backend,ai,mvp",Week 5 (Nov 2-8)
+T-26 Consent gate before any external LLM call,"Done when: without consent the app uses the rule-based path and sends nothing out.
+
+Requirements: NFR-6
+Ticket: T-26","week-5,backend,frontend,mvp",Week 5 (Nov 2-8)
+T-27 Guardrails and the not-medical-advice notice,"Done when: medical questions are redirected, implausible inputs are queried, and the notice is always visible.
+
+Requirements: P-3
+Ticket: T-27","week-5,backend,frontend,mvp",Week 5 (Nov 2-8)
+T-28 Fallback when the LLM is unavailable,"Done when: switching the API off still returns metrics and rule-based suggestions.
+
+Requirements: P-4, NFR-1
+Ticket: T-28","week-5,backend,mvp",Week 5 (Nov 2-8)
+T-29 Persona generator,"Synthetic users with configurable adherence, progression and logging frequency. Use the '@sim.local' email convention (decision D-4).
+Done when: a persona produces a realistic 12-week history from a single command.
+
+Requirements: P-1
+Ticket: T-29","week-6,backend,simulation,mvp",Week 6 (Nov 9-15)
+"T-30 Run personas through weeks 1, 6 and 12","Done when: each timepoint stores its recommendation and a simulation run record.
+
+Requirements: P-1
+Ticket: T-30","week-6,backend,simulation,mvp",Week 6 (Nov 9-15)
+T-31 Profile comparison view: week 1 against week 12,"Done when: you can show side by side how the profile and suggestions changed.
+
+Requirements: FR-8, P-1
+Ticket: T-31","week-6,frontend,mvp",Week 6 (Nov 9-15)
+T-32 Data export and delete,"Done when: a user can download their data and delete their account, and deletion leaves no rows behind (already tested at database level).
+
+Requirements: P-5, NFR-5
+Ticket: T-32","week-6,backend,mvp",Week 6 (Nov 9-15)
+T-33 Profile dashboard visuals (stretch),"Only after the MVP tests pass.
+
+Requirements: FR-9, FR-12
+Ticket: T-33","week-6,frontend,stretch",Week 6 (Nov 9-15)
+T-34 Third persona (stretch),"Only after the MVP tests pass.
+
+Requirements: P-1
+Ticket: T-34","week-6,simulation,stretch",Week 6 (Nov 9-15)
+T-35 Integration and guardrail tests,"Done when: the full path from check-in to explained suggestion is covered by automated tests.
+
+Requirements: NFR-4, NFR-6, NFR-7, NFR-8, P-3, P-4
+Ticket: T-35","week-7,test,mvp",Week 7 (Nov 16-22)
+T-36 Evaluation script and results tables,"Measures: rule compliance, specificity checklist, consistency across repeated generations, change across timepoints.
+Done when: one command regenerates every number in your results.
+
+Requirements: P-1
+Ticket: T-36","week-7,test,simulation,mvp",Week 7 (Nov 16-22)
+T-37 Raw logs versus computed metrics comparison (only if supervisor approves),"Done when: approval is on record and a second prompt variant runs through the same evaluation script.
+
+Requirements: P-1
+Ticket: T-37","week-7,test,optional",Week 7 (Nov 16-22)
+T-38 Usability walkthrough with 3-5 students (optional),"Done when: check-in time and stumbling points are recorded.
+
+Requirements: NFR-3
+Ticket: T-38","week-7,research,optional",Week 7 (Nov 16-22)
+T-39 Feature freeze,"From here only bug fixes and writing.
+Ticket: T-39","week-7,admin",Week 7 (Nov 16-22)
+"T-40 Add implementation, results and limitations to the document; update the Gantt chart","Done when: Chapter 4 timeline matches what you actually did and limitations are stated plainly.
+Ticket: T-40","week-8,docs",Week 8 (Nov 23-29)
+T-41 Demo script with an offline fallback,"Done when: you can demo with the network off using recorded or cached responses.
+Ticket: T-41","week-8,docs",Week 8 (Nov 23-29)
+T-42 Update slides and rehearse,"Done when: you have rehearsed twice and have a spare day before submission.
+Ticket: T-42","week-8,docs",Week 8 (Nov 23-29)

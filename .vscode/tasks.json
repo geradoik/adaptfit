@@ -1,0 +1,45 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Backend: run tests",
+      "type": "shell",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "command": "${workspaceFolder}/backend/.venv/bin/python -m unittest discover -s tests",
+      "windows": { "command": "${workspaceFolder}\\backend\\.venv\\Scripts\\python.exe -m unittest discover -s tests" },
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Backend: seed demo persona",
+      "type": "shell",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "command": "${workspaceFolder}/backend/.venv/bin/python -m app.demo_seed",
+      "windows": { "command": "${workspaceFolder}\\backend\\.venv\\Scripts\\python.exe -m app.demo_seed" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Backend: run API",
+      "type": "shell",
+      "isBackground": true,
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "command": "${workspaceFolder}/backend/.venv/bin/python -m uvicorn app.main:app --reload --port 8000",
+      "windows": { "command": "${workspaceFolder}\\backend\\.venv\\Scripts\\python.exe -m uvicorn app.main:app --reload --port 8000" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Frontend: run dev server",
+      "type": "shell",
+      "isBackground": true,
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "command": "npm run dev",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run everything (demo)",
+      "dependsOn": ["Backend: run API", "Frontend: run dev server"],
+      "dependsOrder": "parallel",
+      "problemMatcher": []
+    }
+  ]
+}
