@@ -63,7 +63,7 @@ class SchemaTestCase(unittest.TestCase):
     def test_exercises_are_seeded(self):
         self.assertGreaterEqual(self.count("exercises"), 15)
         groups = {r[0] for r in self.conn.execute("SELECT DISTINCT muscle_group FROM exercises")}
-        self.assertEqual(groups, {"chest", "back", "legs", "shoulders", "arms", "core"})
+        self.assertEqual(groups, {"chest", "back", "legs", "shoulders", "arms", "core", "general"})
 
     def test_health_report(self):
         report = db.health(self.conn)

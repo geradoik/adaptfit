@@ -2,9 +2,11 @@
 import os
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException
+from datetime import date
 
-from . import db, demo_seed, metrics_service
+from fastapi import Body, FastAPI, HTTPException
+
+from . import (checkin_service, db, demo_seed, metrics_service, onboarding_service, suggestion_service)
 
 
 def get_db_path() -> str:
@@ -59,5 +61,81 @@ def demo_metrics():
     try:
         uid = demo_seed.seed_demo(conn)
         return _metrics_for(conn, uid, None)
+    finally:
+        conn.close()
+
+
+# --- onboarding, profile, check-in, suggestion -------------------------------------------------------------
+# Each endpoint opens its own connection and maps service errors to HTTP codes:
+# LookupError -> 404, DuplicateCheckin -> 409, ValueError -> 422.
+
+@app.get("/api/exercises")
+def exercises():
+    conn = db.connect(get_db_path())
+    try:
+        return checkin_service.list_exercises(conn)
+    finally:
+        conn.close()
+
+
+@app.post("/api/onboarding", status_code=201)
+def onboarding(payload: dict = Body(...)):
+    conn = db.connect(get_db_path())
+    try:
+        return {"user_id": onboarding_service.save_onboarding(conn, payload)}
+    except ValueError as error:
+        raise HTTPException(status_code=422, detail=str(error))
+    finally:
+        conn.close()
+
+
+@app.get("/api/users/{user_id}/profile")
+def profile(user_id: int):
+    conn = db.connect(get_db_path())
+    try:
+        found = onboarding_service.load_profile(conn, user_id)
+        if found is None:
+            raise HTTPException(status_code=404, detail="User not found")
+        return found
+    finally:
+        conn.close()
+
+
+@app.post("/api/users/{user_id}/checkins", status_code=201)
+def create_checkin(user_id: int, payload: dict = Body(...)):
+    conn = db.connect(get_db_path())
+    try:
+        saved = checkin_service.save_checkin(conn, user_id, payload)
+        recommendation_id = suggestion_service.generate_suggestion(
+            conn, user_id, date.fromisoformat(saved["checkin_date"]))
+        return {**saved, "recommendation_id": recommendation_id}
+    except LookupError as error:
+        raise HTTPException(status_code=404, detail=str(error))
+    except checkin_service.DuplicateCheckin as error:
+        raise HTTPException(status_code=409, detail=str(error))
+    except ValueError as error:
+        raise HTTPException(status_code=422, detail=str(error))
+    finally:
+        conn.close()
+
+
+@app.get("/api/users/{user_id}/suggestion")
+def latest_suggestion(user_id: int):
+    conn = db.connect(get_db_path())
+    try:
+        found = suggestion_service.latest_suggestion(conn, user_id)
+        if found is None:
+            raise HTTPException(status_code=404, detail="No suggestion yet")
+        return found
+    finally:
+        conn.close()
+
+
+@app.get("/api/demo/user")
+def demo_user():
+    """The simulated persona's user id (created on first use), so the screens can use the normal endpoints."""
+    conn = db.connect(get_db_path())
+    try:
+        return {"user_id": demo_seed.seed_demo(conn)}
     finally:
         conn.close()

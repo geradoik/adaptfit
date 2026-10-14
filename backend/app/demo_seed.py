@@ -55,7 +55,10 @@ def seed_demo(conn: sqlite3.Connection) -> int:
     conn.execute("INSERT OR IGNORE INTO personas (name, config_description) VALUES (?, ?)",
                  (PERSONA_NAME, "Novice, 21, 175 cm, trains Mon/Wed/Fri, moderate deficit, mostly steady sleep"))
     conn.commit()
+    from . import suggestion_service  # imported here to keep module start-up light
+    suggestion_service.generate_suggestion(conn, uid)
     return uid
+
 
 
 def find_demo_user(conn: sqlite3.Connection):

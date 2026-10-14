@@ -88,6 +88,20 @@ def compute_energy(profile, weight_trend: m.MetricResult) -> list[m.MetricResult
     muscle = m.muscle_gain_range_kg_per_week(p.get("weight"), p.get("training_level"), p.get("sex"))
     return [bmr, tdee, loss, muscle, m.loss_comparison(weight_trend, loss)]
 
+def store_results(conn: sqlite3.Connection, user_id: int, results: list[m.MetricResult], as_of: date) -> dict[str, int]:
+    """Write the ok results to the metrics table. Returns {metric_type: metric_id} so a suggestion can cite them."""
+    stamp = f"{as_of.isoformat()}T00:00:00.000Z"
+    ids: dict[str, int] = {}
+    for r in results:
+        if r.ok:
+            cur = conn.execute("INSERT INTO metrics (user_id, metric_type, value, computed_at) VALUES (?,?,?,?)",
+                               (user_id, r.metric_type, r.value, stamp))
+            ids[r.metric_type] = cur.lastrowid
+    conn.commit()
+    return ids
+
+
+
 
 def compute_all(conn: sqlite3.Connection, user_id: int, as_of: date, store: bool = True) -> list[m.MetricResult]:
     results = [
@@ -101,13 +115,9 @@ def compute_all(conn: sqlite3.Connection, user_id: int, as_of: date, store: bool
         top = max(sets, key=lambda n: len({d for d, w, r in sets[n] if m.epley_1rm(w, r) is not None}))
         results.append(m.strength_progression_pct_per_week(top, sets[top]))
     if store:
-        stamp = f"{as_of.isoformat()}T00:00:00.000Z"
-        for r in results:
-            if r.ok:
-                conn.execute("INSERT INTO metrics (user_id, metric_type, value, computed_at) VALUES (?,?,?,?)",
-                             (user_id, r.metric_type, r.value, stamp))
-        conn.commit()
+        store_results(conn, user_id, results, as_of)
     return results
+
 
 
 def metrics_report(conn: sqlite3.Connection, user_id: int, as_of: str | None = None) -> dict:

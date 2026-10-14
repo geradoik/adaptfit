@@ -20,4 +20,8 @@ INSERT OR IGNORE INTO exercises (name, muscle_group) VALUES
     ('Dips',                   'arms'),
     ('Plank',                  'core'),
     ('Crunch',                 'core'),
-    ('Hanging leg raise',      'core');
+    ('Hanging leg raise',      'core'),
+    -- Placeholder so a session can be marked done without logging any lift (see docs/schema-notes.md, D-2).
+    -- The exercise menu hides muscle_group 'general'.
+    ('Session (general)',      'general');
+
