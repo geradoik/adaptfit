@@ -4,6 +4,10 @@ import { BottomNav, Button, Phone, TopBar } from "./components.jsx";
 import Home from "./screens/Home.jsx";
 import Status from "./screens/Status.jsx";
 
+// Frames with `screen: "..."` in flows.js draw one of these instead of the generic placeholder.
+// Steps 11 to 13 add one entry each.
+const SCREENS = {};
+
 // Wireframe-level skeleton: every Figma frame exists and the taps match the prototype connections.
 // Real forms and logic replace the placeholder lines screen by screen (see docs/week1-checklist.md).
 export default function App() {
@@ -22,29 +26,37 @@ export default function App() {
     );
   }
 
+  const Screen = frame.screen ? SCREENS[frame.screen] : null;
+
   return (
     <Phone>
       <TopBar title={frame.title} back={frame.back} gear={frame.gear} />
-      <main className={frame.sheet ? "body sheet" : "body"}>
-        {frame.step && <p className="caption">{frame.step}</p>}
-        {frame.seg && (
-          <p className="caption">
-            View: <strong>{frame.seg}</strong>
-          </p>
-        )}
-        {frame.live === "home" && <Home />}
-        {frame.lines.map((line) => (
-          <p key={line} className="line">{line}</p>
-        ))}
-        {frame.actions.some((a) => a.variant === "row") ? (
-          frame.actions.map((a) => <Button key={a.label} label={a.label} to={a.to} variant="row" />)
-        ) : null}
-      </main>
-      <footer className="footer">
-        {frame.actions.filter((a) => a.variant !== "row").map((a) => (
-          <Button key={a.label} label={a.label} to={a.to} variant={a.variant} />
-        ))}
-      </footer>
+      {Screen ? (
+        <Screen frameId={route} frame={frame} />
+      ) : (
+        <>
+          <main className={frame.sheet ? "body sheet" : "body"}>
+            {frame.step && <p className="caption">{frame.step}</p>}
+            {frame.seg && (
+              <p className="caption">
+                View: <strong>{frame.seg}</strong>
+              </p>
+            )}
+            {frame.live === "home" && <Home />}
+            {frame.lines.map((line) => (
+              <p key={line} className="line">{line}</p>
+            ))}
+            {frame.actions.some((a) => a.variant === "row")
+              ? frame.actions.map((a) => <Button key={a.label} label={a.label} to={a.to} variant="row" />)
+              : null}
+          </main>
+          <footer className="footer">
+            {frame.actions.filter((a) => a.variant !== "row").map((a) => (
+              <Button key={a.label} label={a.label} to={a.to} variant={a.variant} />
+            ))}
+          </footer>
+        </>
+      )}
       {frame.nav && <BottomNav selected={frame.nav} />}
       <p className="frame-id">Frame {route}</p>
     </Phone>
