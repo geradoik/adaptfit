@@ -3,10 +3,10 @@ import { useRoute } from "./router.js";
 import { BottomNav, Button, Phone, TopBar } from "./components.jsx";
 import Home from "./screens/Home.jsx";
 import Status from "./screens/Status.jsx";
-
+import Onboarding from "./screens/Onboarding.jsx";
 // Frames with `screen: "..."` in flows.js draw one of these instead of the generic placeholder.
 // Steps 11 to 13 add one entry each.
-const SCREENS = {};
+const SCREENS = {onboarding: Onboarding };
 
 // Wireframe-level skeleton: every Figma frame exists and the taps match the prototype connections.
 // Real forms and logic replace the placeholder lines screen by screen (see docs/week1-checklist.md).
