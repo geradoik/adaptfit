@@ -1,4 +1,5 @@
 """Reads logs from the database, calls the pure functions in metrics.py, stores results (FR-9).
+Basically communinates with the database and handles storing the outputs :)
 
 Only results with status "ok" are written to the metrics table. not_enough_data is returned
 to the caller but never stored, so an empty history cannot look like a measured zero.
@@ -111,7 +112,7 @@ def compute_all(conn: sqlite3.Connection, user_id: int, as_of: date, store: bool
     ]
     results += compute_energy(load_latest_profile(conn, user_id), results[1])
     sets = load_strength_sets(conn, user_id)
-    if sets:  # report the exercise with the most usable top-set dates
+    if sets:  # report the exercise with the most usable top-set dates (PR JAIL)
         top = max(sets, key=lambda n: len({d for d, w, r in sets[n] if m.epley_1rm(w, r) is not None}))
         results.append(m.strength_progression_pct_per_week(top, sets[top]))
     if store:
@@ -123,7 +124,7 @@ def compute_all(conn: sqlite3.Connection, user_id: int, as_of: date, store: bool
 def metrics_report(conn: sqlite3.Connection, user_id: int, as_of: str | None = None) -> dict:
     """JSON-ready metrics for one user. Raises LookupError (no such user) or ValueError (bad date).
 
-    Default date is the user's latest check-in, so a demo gives the same numbers every time.
+    Default date is the user's latest checkin, so a demo gives the same numbers whenever i test.
     """
     if conn.execute("SELECT 1 FROM users WHERE user_id = ?", (user_id,)).fetchone() is None:
         raise LookupError("User not found")

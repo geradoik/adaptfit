@@ -1,4 +1,4 @@
-"""Database helpers. Standard library only, so the schema can be tested without installing anything."""
+"""Database helpers. Standard library only, so the schema can be tested without installing anything. :)"""
 import sqlite3
 from pathlib import Path
 

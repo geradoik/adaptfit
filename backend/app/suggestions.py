@@ -3,9 +3,9 @@
 Each suggestion comes from exactly one rule in RULES. The rule's description and citation are stored with the
 suggestion so the "Why this suggestion?" screen can show the numbers and the reason behind it.
  
-HONESTY NOTE: the numeric thresholds below (60%, 80%, 1.25x, 0.75x, 45 minutes) are design choices, not findings
-from a study. What the studies support is the DIRECTION of each rule. Each citation says which is which. Rule set v2
-follows the evidence review "AdaptFit Suggestion Rules: Evidence Review" (15 October 2026).
+NOTE TO SELF: the numeric thresholds below (60%, 80%, 1.25x, 0.75x, 45 minutes) are design choices, not findings
+from a study. What the studies support is the DIRECTION of each rule. Each citation says which is which. Rule set for this second ver
+follows the evidence review with some liberties for design puproses
 """
 from __future__ import annotations
  

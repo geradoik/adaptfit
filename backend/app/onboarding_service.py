@@ -1,5 +1,5 @@
 """Onboarding: validate the answers and create the user plus their baseline profile snapshot (FR-3, FR-4).
-There is no login yet (planned for the final version), so each onboarding creates an anonymous prototype user.
+There is no login yet (not a priority atm), so each onboarding creates an anonymous prototype user.
 """
 from __future__ import annotations
 
@@ -84,7 +84,7 @@ def validate_onboarding(data: dict) -> tuple[dict, list[str]]:
     return clean, errors
 
 def save_onboarding(conn: sqlite3.Connection, data: dict) -> int:
-    """Create the user and the baseline snapshot in one transaction. Returns user_id. Raises ValueError."""
+    """Create the user and the baseline snapshot in one transaction. Returns user_id or ValueError."""
     clean, errors = validate_onboarding(data)
     if errors:
         raise ValueError("; ".join(errors))
@@ -96,7 +96,7 @@ def save_onboarding(conn: sqlite3.Connection, data: dict) -> int:
         conn.execute(
             """INSERT INTO profile_snapshots (user_id, weight, height, sleep_pattern, training_schedule, goal,
                diet_pattern, age, sex, activity_level, training_level, deficit_level, intake_kcal)
-               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (user_id, clean["weight"], clean["height"], sleep_pattern,
              json.dumps({"days": clean["training_days"]}), clean["goal"], clean["diet_pattern"], clean["age"],
              clean["sex"], clean["activity_level"], clean["training_level"], clean["deficit_level"],

@@ -1,6 +1,5 @@
 """Simulated persona for demos and tests (proposal P-1: the evaluation uses simulated users).
 
-Run from backend/:  python -m app.demo_seed            (creates adaptfit.db if needed)
 Safe to re-run: it does nothing if the demo user already exists.
 
 Persona "Sam": 21-year-old novice, 175 cm, moderate activity, trains Mon/Wed/Fri, moderate deficit.

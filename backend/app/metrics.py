@@ -1,7 +1,7 @@
 """Deterministic trend engine: pure functions, no database, no network, no LLM (FR-9, NFR-7).
 
-Every function returns a MetricResult. When there is too little data the result has
-status "not_enough_data" and value None: we never invent a number. See docs/metrics.md.
+Every function returns a rsult. When there is too little data the result has
+status "not_enough_data".
 """
 from __future__ import annotations
 
@@ -43,7 +43,7 @@ def adherence_pct(weeks: list[tuple[int, int]]) -> MetricResult:
     """weeks: (scheduled_sessions, completed_distinct_sessions) per logged week, oldest first.
 
     Uses the last 4 weeks. Completed is capped at scheduled per week so extra sessions do not
-    hide missed ones. Weeks with nothing scheduled are ignored. Needs at least 2 usable weeks.
+    hide missed ones. Weeks with nothing scheduled are a chop. Needs at least 2 usable weeks.
     """
     usable = [(s, min(c, s)) for s, c in weeks if s > 0][-ADHERENCE_WEEKS:]
     if len(usable) < ADHERENCE_MIN_WEEKS:

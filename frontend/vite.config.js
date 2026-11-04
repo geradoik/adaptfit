@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// The proxy sends /api/* to the FastAPI server, so the browser never needs CORS and
+// The proxy sends /api/* to the FastAPI server
 // the LLM API key can stay on the server.
 export default defineConfig({
   plugins: [react()],

@@ -28,7 +28,7 @@ app = FastAPI(title="AdaptFit API", version="0.1.0", lifespan=lifespan)
 
 @app.get("/api/health")
 def health():
-    # One connection per request: sync endpoints run in a thread pool and SQLite connections are not shared across threads.
+    # One connection per request
     conn = db.connect(get_db_path())
     try:
         return {"status": "ok", **db.health(conn)}
@@ -66,8 +66,8 @@ def demo_metrics():
 
 
 # --- onboarding, profile, check-in, suggestion -------------------------------------------------------------
-# Each endpoint opens its own connection and maps service errors to HTTP codes:
-# LookupError -> 404, DuplicateCheckin -> 409, ValueError -> 422.
+# Each endpoint opens its own connection and maps service errors to a http code:
+# LookupError -> 404, DuplicateCheckin -> 409, ValueError -> 422. Helps me know whats going on.
 
 @app.get("/api/exercises")
 def exercises():

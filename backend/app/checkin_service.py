@@ -3,7 +3,7 @@ from .onboarding_service import DAYS
 
 
 class DuplicateCheckin(ValueError):
-    """The user already has a check-in on that date (the API answers 409)."""
+    """The user already has a check-in on that date."""
 
 
 GENERAL_SESSION = "Session (general)"  # placeholder exercise used when a session is done but no lift is logged
