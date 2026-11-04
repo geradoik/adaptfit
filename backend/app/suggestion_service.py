@@ -67,8 +67,11 @@ def generate_suggestion(conn: sqlite3.Connection, user_id: int, as_of: date | No
  
 def latest_suggestion(conn: sqlite3.Connection, user_id: int) -> dict | None:
     """The newest suggestion with the metrics and rule behind it, or None if there is none yet."""
-    rec = conn.execute("SELECT * FROM recommendations WHERE user_id = ? ORDER BY generated_at DESC, "
-                       "recommendation_id DESC LIMIT 1", (user_id,)).fetchone()
+   # question IS NULL = the weekly suggestion. Answers to free questions (Ask screen) are stored in the same
+    # table but must never replace "This week's suggestion" on the Home screen.
+    rec = conn.execute("SELECT * FROM recommendations WHERE user_id = ? AND question IS NULL "
+                       "ORDER BY generated_at DESC, recommendation_id DESC LIMIT 1", (user_id,)).fetchone()
+
     if rec is None:
         return None
     based_on = [

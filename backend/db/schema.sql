@@ -3,7 +3,7 @@
 -- Safe to run repeatedly: every statement is IF NOT EXISTS.
 
 PRAGMA foreign_keys = ON;
-PRAGMA user_version = 2;
+PRAGMA user_version = 3;
 
 CREATE TABLE IF NOT EXISTS users (
     user_id        INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -105,7 +105,11 @@ CREATE TABLE IF NOT EXISTS recommendations (
     recommendation_id  INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id            INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
     generated_at       TEXT    NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
-    content            TEXT    NOT NULL
+    content            TEXT    NOT NULL,
+    -- Decision D-3: who wrote it. 'rules' = the rule engine (or the rules fallback), 'llm' = the AI layer.
+    source             TEXT    NOT NULL DEFAULT 'rules' CHECK (source IN ('rules', 'llm')),
+    -- NULL for the weekly suggestion; the user's question when this row answers a free question (Ask screen).
+    question           TEXT
 );
 
 -- FR-14, NFR-7: traceability. Link tables resolve the two many-to-many relationships in the ER diagram.

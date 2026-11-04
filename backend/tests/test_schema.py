@@ -69,7 +69,7 @@ class SchemaTestCase(unittest.TestCase):
         report = db.health(self.conn)
         self.assertEqual(report["database"], "ok")
         self.assertEqual(report["tables"], len(EXPECTED_TABLES))
-        self.assertEqual(report["schema_version"], 2)
+        self.assertEqual(report["schema_version"], 3)
 
     # integrity -------------------------------------------------------------
     def test_email_is_unique(self):
