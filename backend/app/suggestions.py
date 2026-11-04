@@ -73,6 +73,10 @@ METRIC_DISPLAY = {
     "loss_vs_expected_ratio": ("Loss versus plan", "measured / expected", lambda v: f"{v:.2f}x the expected loss"),
     "expected_loss_kg_per_week": ("Expected loss", "early-weeks estimate", lambda v: f"{v:.2f} kg/week"),
     "strength_progression_pct_per_week": ("Strength", "top-set trend", lambda v: f"{v:+.1f}% per week"),
+    "bmr_kcal": ("Resting energy (BMR)", "estimate", lambda v: f"{v:.0f} kcal/day"),
+    "tdee_kcal": ("Daily energy (TDEE)", "estimate, range +/-10%", lambda v: f"{v:.0f} kcal/day"),
+    "muscle_gain_kg_per_week": ("Realistic muscle gain", "heuristic", lambda v: f"{v:.2f} kg/week"),
+
 }
  
  

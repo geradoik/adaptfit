@@ -6,7 +6,8 @@ from datetime import date
 
 from fastapi import Body, FastAPI, HTTPException
 
-from . import (checkin_service, db, demo_seed, metrics_service, onboarding_service, suggestion_service)
+from . import (ask_service, checkin_service, db, demo_seed, llm_client, metrics_service,
+               onboarding_service, suggestion_service)
 
 
 def get_db_path() -> str:
@@ -139,3 +140,19 @@ def demo_user():
         return {"user_id": demo_seed.seed_demo(conn)}
     finally:
         conn.close()
+
+@app.post("/api/users/{user_id}/ask")
+def ask(user_id: int, payload: dict = Body(...)):
+    """Answer a free question. The AI is used only if the body says "consent_llm": true (strictly true, NFR-6)."""
+    conn = db.connect(get_db_path())
+    try:
+        return ask_service.ask(conn, user_id, payload.get("question"), payload.get("consent_llm") is True,
+                               llm_client.get_client())
+    except LookupError as error:
+        raise HTTPException(status_code=404, detail=str(error))
+    except ValueError as error:
+        raise HTTPException(status_code=422, detail=str(error))
+    finally:
+        conn.close()
+ 
+
