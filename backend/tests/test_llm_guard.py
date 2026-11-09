@@ -1,7 +1,6 @@
 import unittest
 from datetime import  date 
 from app import db, demo_seed, llm_context as lc, llm_guard as g, metrics_service
- gi
 def make_context():
     conn = db.connect(":memory:")
     db.init_db(conn)
