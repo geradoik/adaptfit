@@ -27,14 +27,16 @@ export const FRAMES = {
     actions: [{ label: "Create my profile", to: "06", variant: "primary" }, { label: "Back", to: "01b", variant: "text" }],
   },
   "06": {
-    title: "Before we start", group: "Consent",
+    title: "Before we start", group: "Consent", screen: "consent",
     lines: ["General fitness guidance, not medical advice.", "AI explanations: off by default. Only summary numbers are ever sent.", "Your data: export or delete."],
     actions: [{ label: "Save choices", to: "03a", variant: "primary" }],
   },
   "03a": {
     title: "This week", group: "Home", nav: "Home", gear: "07", live: "home",
     lines: [],
-    actions: [{ label: "Why this suggestion?", to: "04a", variant: "secondary" }, { label: "Compare weeks", to: "05b", variant: "text" }],
+    actions: [{ label: "Why this suggestion?", to: "04a", variant: "secondary" },
+              { label: "Ask a question", to: "08", variant: "secondary" },
+              { label: "Compare weeks", to: "05b", variant: "text" }],
   },
   "03c": {
     title: "This week", group: "Home", nav: "Home", gear: "07",
@@ -81,8 +83,14 @@ export const FRAMES = {
     lines: ["From and To dates. Weight, adherence, sleep consistency, suggestion."],
     actions: [{ label: "Timeline", to: "05a", variant: "chip" }],
   },
+  "08": {
+    title: "Ask", group: "Ask", back: true, screen: "ask",
+    lines: ["Ask about your own progress. Answers use your stored numbers and say whether the AI or the rules wrote them."],
+    actions: [],
+  },
+
   "07": {
-    title: "Settings", group: "Settings", back: true,
+    title: "Settings", group: "Settings", back: true, screen: "settings",
     lines: [],
     actions: [{ label: "Privacy and AI explanations", to: "06", variant: "row" }],
   },

@@ -6,9 +6,12 @@ import Status from "./screens/Status.jsx";
 import Onboarding from "./screens/Onboarding.jsx";
 import CheckIn from "./screens/CheckIn.jsx";
 import Why from "./screens/Why.jsx";
+import Ask from "./screens/Ask.jsx";
+import Consent from "./screens/Consent.jsx";
+
 // Frames with `screen: "..."` in flows.js draw one of these instead of the generic placeholder.
 // Steps 11 to 13 add one entry each.
-const SCREENS = {onboarding: Onboarding, checkin: CheckIn, why: Why };
+const SCREENS = {onboarding: Onboarding, checkin: CheckIn, why: Why, ask: Ask, consent: Consent};
 
 // Wireframe-level skeleton: every Figma frame exists and the taps match the prototype connections.
 // Real forms and logic replace the placeholder lines screen by screen (see docs/week1-checklist.md).

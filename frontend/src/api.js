@@ -24,6 +24,7 @@ async function request(method, url, body) {
 
 export const getJSON = (url) => request("GET", url);
 export const postJSON = (url, body) => request("POST", url, body);
+export const deleteJSON = (url) => request("DELETE", url);
 
 // Which user is using the app? There is no login yet, so we remember the id the server gave at onboarding.
 const KEY = "adaptfit_user_id";
@@ -72,3 +73,27 @@ export function todayISO() {
   const day = String(now.getDate()).padStart(2, "0");
   return `${now.getFullYear()}-${month}-${day}`;
 }
+// Does the user allow AI answers? Off until they switch it on (NFR-6). Kept like the user id: localStorage with a
+// memory fallback. The server only uses the AI when each request says consent_llm is true.
+const CONSENT_KEY = "adaptfit_ai_consent";
+let memoryConsent = false;
+ 
+export function getConsent() {
+  try {
+    const stored = window.localStorage.getItem(CONSENT_KEY);
+    if (stored !== null) return stored === "true";
+  } catch {
+    // storage blocked: fall through to memory
+  }
+  return memoryConsent;
+}
+ 
+export function setConsent(on) {
+  memoryConsent = Boolean(on);
+  try {
+    window.localStorage.setItem(CONSENT_KEY, String(Boolean(on)));
+  } catch {
+    // storage blocked: the choice only lives until the page reloads
+  }
+}
+
