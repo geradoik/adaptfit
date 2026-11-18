@@ -1,0 +1,16 @@
+persona,week,date,rule,adherence,trend,sleep_spread,suggestion
+steady_lifter,1,2026-07-06,R1,,,,Log one more weekly check-in. Your numbers and suggestions appear after two weeks of data.
+steady_lifter,6,2026-08-10,R6,100.0,-0.4,0.0,"Good consistency and your lifts are going up. If your last sets felt manageable, add one rep to each set, or the smallest weight increase you have, next week."
+steady_lifter,12,2026-09-21,R6,100.0,-0.4,0.0,"Good consistency and your lifts are going up. If your last sets felt manageable, add one rep to each set, or the smallest weight increase you have, next week."
+skipper,1,2026-07-06,R1,,,,Log one more weekly check-in. Your numbers and suggestions appear after two weeks of data.
+skipper,6,2026-08-10,R3,33.33,-0.1,0.0,"You completed 33% of your planned sessions. For the next two weeks, try 2 sessions a week. Studies find 2 sessions a week still builds strength and muscle when you work hard in each one."
+skipper,12,2026-09-21,R3,33.33,-0.1,0.0,"You completed 33% of your planned sessions. For the next two weeks, try 2 sessions a week. Studies find 2 sessions a week still builds strength and muscle when you work hard in each one."
+crash_dieter,1,2026-07-06,R1,,,,Log one more weekly check-in. Your numbers and suggestions appear after two weeks of data.
+crash_dieter,6,2026-08-10,R2,100.0,-1.5,0.0,"You are losing weight faster than your plan expects. If this continues, a smaller deficit helps keep muscle and makes the loss easier to sustain."
+crash_dieter,12,2026-09-21,R2,100.0,-1.5,0.0,"You are losing weight faster than your plan expects. If this continues, a smaller deficit helps keep muscle and makes the loss easier to sustain."
+night_owl,1,2026-07-06,R1,,,,Log one more weekly check-in. Your numbers and suggestions appear after two weeks of data.
+night_owl,6,2026-08-10,R4,100.0,-0.4,95.26,"Your bed and wake times vary by about 95 minutes. Large studies link steadier sleep timing with better health. This week, try to keep both within 30 minutes of the same time."
+night_owl,12,2026-09-21,R4,100.0,-0.4,95.26,"Your bed and wake times vary by about 95 minutes. Large studies link steadier sleep timing with better health. This week, try to keep both within 30 minutes of the same time."
+plateau,1,2026-07-06,R1,,,,Log one more weekly check-in. Your numbers and suggestions appear after two weeks of data.
+plateau,6,2026-08-10,R5,100.0,0.0,0.0,"Your weight is changing more slowly than your plan predicts. This is common early on, and estimates like this usually run higher than real-world results. Check your intake against your plan and give it two more weeks before changing anything."
+plateau,12,2026-09-21,R5,100.0,0.0,0.0,"Your weight is changing more slowly than your plan predicts. This is common early on, and estimates like this usually run higher than real-world results. Check your intake against your plan and give it two more weeks before changing anything."
