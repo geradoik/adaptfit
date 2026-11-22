@@ -1,5 +1,6 @@
 from datetime import date
 from .onboarding_service import DAYS
+from datetime import datetime, timedelta, timezone
 
 
 class DuplicateCheckin(ValueError):
@@ -154,3 +155,8 @@ def save_checkin(conn: sqlite3.Connection, user_id: int, data: dict, today: date
         conn.rollback()
         raise
     return {"checkin_id": checkin_id, "snapshot_id": snapshot_id, "checkin_date": clean["checkin_date"]}
+EDIT_WINDOW = timedelta(hours=24)   # timedelta(minutes=1) for the demo
+
+def can_edit(snapshot, now=None):
+    now = now or datetime.now(timezone.utc)
+    return now <= snapshot.created_at + EDIT_WINDOW
