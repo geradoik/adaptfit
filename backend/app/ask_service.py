@@ -86,7 +86,7 @@ def ask(conn: sqlite3.Connection, user_id: int, question, consent_llm: bool, cli
             "SELECT metric_id FROM recommendation_metrics WHERE recommendation_id = ?", (weekly_id,))]
         rule_ids = [r[0] for r in conn.execute(
             "SELECT rule_id FROM recommendation_rules WHERE recommendation_id = ?", (weekly_id,))]
- goienndkk
+ 
     rec_id = _save(conn, user_id, question, text, source, metric_ids, rule_ids)
     based_on = [suggestions.display_for(r["metric_type"], r["value"]) for r in conn.execute(
         "SELECT m.metric_type, m.value FROM recommendation_metrics rm JOIN metrics m ON m.metric_id = rm.metric_id "
@@ -94,4 +94,4 @@ def ask(conn: sqlite3.Connection, user_id: int, question, consent_llm: bool, cli
     evidence = [item for item in context["evidence"] if item["id"] in cited]
     return {"recommendation_id": rec_id, "answer": text, "generated_by": source, "fallback_reason": reason,
             "fallback_message": REASONS.get(reason), "estimate": four["status"] == "ok", "projection": four,
-            "based_on": based_on, "evidence": evidence, "disclaimer": suggestion_service.DISCLAIMER}}}
+            "based_on": based_on, "evidence": evidence, "disclaimer": suggestion_service.DISCLAIMER}
