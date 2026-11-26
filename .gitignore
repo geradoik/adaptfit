@@ -1,26 +1,8 @@
-# Secrets and local config
-.env
-*.key
-
-# Python
 .venv/
-venv/
 __pycache__/
 *.pyc
-.pytest_cache/
-
-# Node
+*.db
+.env
 node_modules/
 dist/
-build/
-
-# Local database files (schema and seed scripts are still tracked)
-*.db
-*.sqlite
-*.sqlite3
-
-# Editor and OS
-.vscode/
-.idea/
 .DS_Store
-Thumbs.db

@@ -82,12 +82,3 @@ Accept the recommended extensions. **Terminal > Run Task** has: Backend: run tes
 | `.vscode/` | Tasks, debug config, recommended extensions |
 
 Never commit `.env` or a real API key. Copy `.env.example` to `.env` when the LLM layer starts.
-
-## Validation helpers
-
-Added a new folder, `adaptfit_helpers/`, with:
-
-- `validation.py`: two input checks, `validate_number_in_range` and `validate_choice`
-- `test_validation.py`: 8 unit tests for them
-
-Run the tests from the top folder with `python -m pytest adaptfit_helpers`.
