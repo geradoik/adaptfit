@@ -45,21 +45,7 @@ npm run dev                        # http://localhost:5173
 - http://localhost:5173/#/index lists every wireframe frame; `#/03a` is the Home screen with live metrics.
 - The app opens on frame 01a; tapping through follows `docs/prototype-flows.md`.
 
-### 4. Optional: load the tickets
-```bash
-gh auth login
-python scripts/create_issues.py          # dry run
-python scripts/create_issues.py --run    # creates 42 issues and 8 milestones (run once)
-```
 
-### In VS Code
-Accept the recommended extensions. **Terminal > Run Task** has: Backend: run tests, Backend: run API, Frontend: run dev server, and **Run everything (demo)**, which starts both servers. F5 debugs the API.
-
-## If something fails
-- **`pip install` fails building pydantic-core on Python 3.14:** upgrade pip (`python -m pip install -U pip`) and retry. If it still fails, use Python 3.13 for the venv; nothing in the code needs 3.14.
-- **PowerShell will not activate the venv:** run `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` once.
-- **Old `adaptfit.db` and errors about missing columns:** delete `backend/adaptfit.db` and restart; the schema is now version 2.
-- **Front end shows "Could not reach the server":** the backend is not running on port 8000.
 
 ## Folder map
 
@@ -82,3 +68,12 @@ Accept the recommended extensions. **Terminal > Run Task** has: Backend: run tes
 | `.vscode/` | Tasks, debug config, recommended extensions |
 
 Never commit `.env` or a real API key. Copy `.env.example` to `.env` when the LLM layer starts.
+
+Rule
+R1	Neither adherence nor weight trend has enough data	Log one more check-in; numbers appear after two weeks	Brand new user, 1 check-in
+R2	Losing weight faster than planned on two check-ins in a row (ratio above 1.25x)	A smaller deficit keeps muscle and is easier to sustain	Ratio 1.6x now and last time
+R3	Adherence below 60%	Try a smaller plan for two weeks, never fewer than 2 sessions a week	50% of 12 sessions: suggests 2 a week
+R4	Bed and wake times vary by more than 45 minutes	Keep both within 30 minutes of the same time	70 minute spread
+R5	Losing more slowly than planned (ratio below 0.75x)	Common early on; check intake; wait two more weeks	Ratio 0.4x
+R6	Adherence at least 80% and strength going up	Add one rep to each set, or the smallest weight increase	92% and bench +2.5% a week
+R7	Nothing above applied	Nothing needs changing, keep the plan	70% adherence, normal trend
