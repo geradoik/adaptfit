@@ -74,12 +74,12 @@ export const FRAMES = {
     actions: [],
   },
   "05a": {
-    title: "History", group: "History", nav: "History", seg: "Timeline",
+    title: "History", group: "History", nav: "History", seg: "Timeline", screen: "history",
     lines: ["Newest first: date, Baseline or Check-in, weight, change."],
     actions: [{ label: "Compare", to: "05b", variant: "chip" }],
   },
   "05b": {
-    title: "History", group: "History", nav: "History", seg: "Compare",
+    title: "History", group: "History", nav: "History", seg: "Compare", screen: "history",
     lines: ["From and To dates. Weight, adherence, sleep consistency, suggestion."],
     actions: [{ label: "Timeline", to: "05a", variant: "chip" }],
   },

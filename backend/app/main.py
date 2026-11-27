@@ -7,7 +7,7 @@ from datetime import date
 from fastapi import Body, FastAPI, HTTPException
 
 from . import (ask_service, checkin_service, db, demo_seed, llm_client, metrics_service,
-               onboarding_service, suggestion_service)
+               onboarding_service, suggestion_service, history_service)
 
 
 def get_db_path() -> str:
@@ -154,5 +154,29 @@ def ask(user_id: int, payload: dict = Body(...)):
         raise HTTPException(status_code=422, detail=str(error))
     finally:
         conn.close()
- 
+@app.get("/api/users/{user_id}/history")
+def history(user_id: int):
+    """Every profile snapshot, newest first (frame 05a)."""
+    conn = db.connect(get_db_path())
+    try:
+        return history_service.timeline(conn, user_id)
+    except LookupError as error:
+        raise HTTPException(status_code=404, detail=str(error))
+    finally:
+        conn.close()
+
+
+@app.get("/api/users/{user_id}/compare")
+def compare_weeks(user_id: int, from_date: str, to_date: str):
+    """Two check-in dates side by side (frame 05b)."""
+    conn = db.connect(get_db_path())
+    try:
+        return history_service.compare(conn, user_id, from_date, to_date)
+    except LookupError as error:
+        raise HTTPException(status_code=404, detail=str(error))
+    except ValueError as error:
+        raise HTTPException(status_code=422, detail=str(error))
+    finally:
+        conn.close()
+
 
